@@ -28,21 +28,49 @@ class NoticiasController extends Controller
     {
     	$id =Session::get('id2');
 
+      $type =Session::get('tipo');
+
+      $busqueda1 = "";
+      $consNoticias = "";
+
+      if ($type==3) {
+        $busqueda1 = "SELECT c.id_clase,c.id_curso, b.Nombre, c.seccion FROM Alumno_Clase a,Clase c, Curso b WHERE a.id =".$id." AND c.id_curso = b.id_curso AND a.id_clase = c.id_clase;";
+
+        $consNoticias = "SELECT 
+                      C.id_noticia as IdNoticia, 
+                      D.Nombre as Clase, 
+                      B.seccion as Seccion, 
+                      C.Titulo as Titulo, 
+                      C.Descripcion, 
+                      C.Fecha, 
+                      E.Nombre as Nombre, 
+                      E.tipo
+                      FROM Alumno_Clase A
+                      INNER JOIN Clase B ON A.id_clase = B.id_clase
+                      INNER JOIN Noticia C ON C.id_clase = B.id_clase
+                      INNER JOIN Curso D ON D.id_curso = B.id_curso
+                      INNER JOIN users E ON E.id = A.id
+                      WHERE A.id=".$id." ORDER BY C.Fecha, D.Nombre, B.seccion Desc";
+
+       
+      }else{
+
     	$busqueda1 = "SELECT a.id_clase,a.id_curso, b.Nombre, a.seccion FROM Clase a, Curso b WHERE a.id =".$id." AND b.id_curso = a.id_curso;";
-    	$cursos = DB::SELECT($busqueda1);
 
-        $type =Session::get('tipo');
-        $clases =Session::get('clases');
-        $username =Session::get('username');
-        $type =Session::get('tipo');
-
-        $consNoticias = "SELECT C.id_noticia as IdNoticia, D.Nombre as Clase, B.seccion as Seccion, C.Titulo as Titulo, C.Descripcion, C.Fecha, A.Nombre as Nombre , A.tipo
+       $consNoticias = "SELECT C.id_noticia as IdNoticia, D.Nombre as Clase, B.seccion as Seccion, C.Titulo as Titulo, C.Descripcion, C.Fecha, A.Nombre as Nombre , A.tipo
                                     FROM users A
                                     INNER JOIN Clase B ON A.id = B.id
                                     INNER JOIN Noticia C ON C.id_clase = B.id_clase
                                     INNER JOIN Curso D ON D.id_curso = B.id_curso
                                     WHERE A.id=".$id." ORDER BY C.Fecha, D.Nombre, B.seccion Desc";
+      }
 
+    	$cursos = DB::SELECT($busqueda1);
+
+        $clases =Session::get('clases');
+        $username =Session::get('username');
+
+        
         $noticias  = DB::SELECT($consNoticias);
 
         //echo json_encode($noticias);
@@ -72,12 +100,6 @@ class NoticiasController extends Controller
         $id2 =Session::get('id2');
         $mensaje = $request->mensaje;
         $fecha = $request->fecha;
-
-        /*echo $id_noticia;
-        echo $id2;
-        echo $fecha;
-        echo $mensaje;*/
-
         $sentencia = "INSERT INTO Dialogo (Fecha, Contenido, id, id_noticia) VALUES ('".$fecha."', '".$mensaje."',".$id2.",".$id_noticia.")";
            DB::INSERT($sentencia);
            DB::commit();

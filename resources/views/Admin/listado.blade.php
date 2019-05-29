@@ -44,6 +44,15 @@
                     Catedrático
                 </a>
             </div>
+            <div class="col-md-2">
+            <form method="POST" action="{{ route('admin.carga') }}">
+                <button type="submit" data-toggle="modal" class="btn m-t-20 btn-danger btn-block waves-effect waves-light">
+                    <i class="mdi mdi-upload"></i> 
+                    Carga masiva
+                </button>
+                {{ csrf_field() }}
+            </form>
+        </div>
         </div>
     </div>
     <div class="modal fade none-border" id="add-new-curso">
@@ -110,7 +119,7 @@
                                 <select class="form-control form-white" data-placeholder="Edificio" name="edificio">
                                     <option value="T-3">T-3</option>
                                     <option value="T-1">T-1</option>
-                                    <option value="S12">S12</option>
+                                    <option value="S12">S-12</option>
                                 </select>
                             </div>    
                             <div class="col-md-6">

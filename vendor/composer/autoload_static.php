@@ -20,12 +20,17 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
+        '7bb4f001eb5212bde073bf47a4bbedad' => __DIR__ . '/..' . '/szymach/c-pchart/constants.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'j' => 
+        array (
+            'jlawrence\\eos\\' => 14,
         ),
         'X' => 
         array (
@@ -93,6 +98,7 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
         ),
         'J' => 
         array (
+            'Jenssegers\\Date\\' => 16,
             'JakubOnderka\\PhpConsoleHighlighter\\' => 35,
             'JakubOnderka\\PhpConsoleColor\\' => 29,
         ),
@@ -121,6 +127,8 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
         'C' => 
         array (
             'Cron\\' => 5,
+            'CpChart\\' => 8,
+            'ConsoleTVs\\Charts\\' => 18,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -140,6 +148,10 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'jlawrence\\eos\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jlawrence/eos/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -277,6 +289,10 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'Jenssegers\\Date\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/jenssegers/date/src',
+        ),
         'JakubOnderka\\PhpConsoleHighlighter\\' => 
         array (
             0 => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src',
@@ -328,6 +344,14 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
         'Cron\\' => 
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
+        ),
+        'CpChart\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/szymach/c-pchart/src',
+        ),
+        'ConsoleTVs\\Charts\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/consoletvs/charts/src',
         ),
         'Carbon\\' => 
         array (
@@ -465,6 +489,32 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
         'Carbon\\Traits\\Units' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Units.php',
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
+        'ConsoleTVs\\Charts\\Builder' => __DIR__ . '/..' . '/consoletvs/charts/src/Builder.php',
+        'ConsoleTVs\\Charts\\Builder\\Chart' => __DIR__ . '/..' . '/consoletvs/charts/src/Builder/Chart.php',
+        'ConsoleTVs\\Charts\\Builder\\Database' => __DIR__ . '/..' . '/consoletvs/charts/src/Builder/Database.php',
+        'ConsoleTVs\\Charts\\Builder\\Math' => __DIR__ . '/..' . '/consoletvs/charts/src/Builder/Math.php',
+        'ConsoleTVs\\Charts\\Builder\\Multi' => __DIR__ . '/..' . '/consoletvs/charts/src/Builder/Multi.php',
+        'ConsoleTVs\\Charts\\Builder\\MultiDatabase' => __DIR__ . '/..' . '/consoletvs/charts/src/Builder/MultiDatabase.php',
+        'ConsoleTVs\\Charts\\Builder\\Realtime' => __DIR__ . '/..' . '/consoletvs/charts/src/Builder/Realtime.php',
+        'ConsoleTVs\\Charts\\ChartsServiceProvider' => __DIR__ . '/..' . '/consoletvs/charts/src/ChartsServiceProvider.php',
+        'ConsoleTVs\\Charts\\Facades\\Charts' => __DIR__ . '/..' . '/consoletvs/charts/src/Facades/Charts.php',
+        'ConsoleTVs\\Charts\\Traits\\Setters' => __DIR__ . '/..' . '/consoletvs/charts/src/Traits/Setters.php',
+        'CpChart\\Barcode\\Barcode128' => __DIR__ . '/..' . '/szymach/c-pchart/src/Barcode/Barcode128.php',
+        'CpChart\\Barcode\\Barcode39' => __DIR__ . '/..' . '/szymach/c-pchart/src/Barcode/Barcode39.php',
+        'CpChart\\BaseDraw' => __DIR__ . '/..' . '/szymach/c-pchart/src/BaseDraw.php',
+        'CpChart\\Cache' => __DIR__ . '/..' . '/szymach/c-pchart/src/Cache.php',
+        'CpChart\\Chart\\Bubble' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Bubble.php',
+        'CpChart\\Chart\\Indicator' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Indicator.php',
+        'CpChart\\Chart\\Pie' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Pie.php',
+        'CpChart\\Chart\\Radar' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Radar.php',
+        'CpChart\\Chart\\Scatter' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Scatter.php',
+        'CpChart\\Chart\\Split' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Split.php',
+        'CpChart\\Chart\\Spring' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Spring.php',
+        'CpChart\\Chart\\Stock' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Stock.php',
+        'CpChart\\Chart\\Surface' => __DIR__ . '/..' . '/szymach/c-pchart/src/Chart/Surface.php',
+        'CpChart\\Data' => __DIR__ . '/..' . '/szymach/c-pchart/src/Data.php',
+        'CpChart\\Draw' => __DIR__ . '/..' . '/szymach/c-pchart/src/Draw.php',
+        'CpChart\\Image' => __DIR__ . '/..' . '/szymach/c-pchart/src/Image.php',
         'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
@@ -2034,6 +2084,8 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/Highlighter.php',
+        'Jenssegers\\Date\\Date' => __DIR__ . '/..' . '/jenssegers/date/src/Date.php',
+        'Jenssegers\\Date\\DateServiceProvider' => __DIR__ . '/..' . '/jenssegers/date/src/DateServiceProvider.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
@@ -4043,6 +4095,13 @@ class ComposerStaticInit10378e95f741571f50833d6622031569
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
+        'jlawrence\\eos\\AdvancedFunctions' => __DIR__ . '/..' . '/jlawrence/eos/src/AdvancedFunctions.php',
+        'jlawrence\\eos\\Graph' => __DIR__ . '/..' . '/jlawrence/eos/src/Graph.php',
+        'jlawrence\\eos\\Math' => __DIR__ . '/..' . '/jlawrence/eos/src/Math.php',
+        'jlawrence\\eos\\Matrix' => __DIR__ . '/..' . '/jlawrence/eos/src/Matrix.php',
+        'jlawrence\\eos\\Parser' => __DIR__ . '/..' . '/jlawrence/eos/src/Parser.php',
+        'jlawrence\\eos\\Stack' => __DIR__ . '/..' . '/jlawrence/eos/src/Stack.php',
+        'jlawrence\\eos\\Trig' => __DIR__ . '/..' . '/jlawrence/eos/src/Trig.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

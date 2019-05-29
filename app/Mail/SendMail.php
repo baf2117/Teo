@@ -11,23 +11,24 @@ class SendMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+     public $demo;
+ 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($demo)
     {
-        //
+        $this->demo = $demo;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
+
     public function build()
     {
-        return $this->view('view.name');
+        
+        return $this->from('teo.mate.usac@gmail.com')
+                    ->view('mails.demo')
+                    ->text('mails.demo_plain');
     }
 }

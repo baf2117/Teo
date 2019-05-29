@@ -17,7 +17,7 @@
     <body>
          <div class="row">
             <div class="col-12  align-items-center">
-                <img src="/img/encabezado.png" style="width:100%; " class="img-fluid"> 
+                <img src="/img/BANNER.jpg" style="width:100%; " class="img-fluid"> 
             </div>
         </div>
         <div class="preloader">

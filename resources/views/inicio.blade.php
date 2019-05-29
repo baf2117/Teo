@@ -1,6 +1,6 @@
 @extends('templates.main')
-@section('news')
-
+@section('head')
+<link href="/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
 @endsection
 @section('content')
     <div>
@@ -55,7 +55,16 @@
                                                             <div class="card card-hover">
                                                                 <div class="box bg-cyan text-center" href="/curso">
                                                                     <h1 class="font-light text-white"><i class="fas fa-users"></i></h1>
-                                                                    <h6 class="text-white">Alumnos<br/><?php echo "$item->CantAlumnos";?></h6>
+                                                                    <?php
+                                                                    if ($type==3) {?>
+                                                                        <h6 class="text-white">Auxiliar<br/><?php echo "$item->auxiliar";?></h6>
+                                                                    <?php
+                                                                    }else{
+                                                                    ?>
+                                                                        <h6 class="text-white">Alumnos<br/><?php echo "$item->CantAlumnos";?></h6>
+                                                                    <?php
+                                                                        }
+                                                                    ?>
                                                                 </div>
                                                             </div>
                                                         </a>
@@ -86,13 +95,15 @@
                                                     </div>
                                                     <div class="col-md-6 col-lg-2 col-xlg-3">
                                                         <div class="card card-hover">
-                                                            <div class="box bg-info text-center">
+                                                            <div class="box bg-info text-center" href="/curso">
                                                                 <h1 class="font-light text-white"><i class="fas fa-calendar-check"></i></h1>
                                                                 <?php if (($item->NombreClase=='Matemática Básica 1')||($item->NombreClase=='Matemática Básica 2')||($item->NombreClase=='Matemática Intermedia 1')||($item->NombreClase=='Matemática Intermedia 2')||($item->NombreClase=='Matemática Intermedia 3')){?>
                                                                 <h6 class="text-white">Días<br/>L-Ma-Mi-V</h6>
                                                                 <?php }else{?>
                                                                 <h6 class="text-white">Días<br/>L-Mi-V</h6>
-                                                                <?php }?>
+                                                                <?php 
+                                                                    }
+                                                                ?>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -196,4 +207,11 @@
     <script src="/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="/dist/js/pages/chart/chart-page-init.js"></script>
+    <script src="/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/libs/toastr/build/toastr.min.js"></script>
+    @if(isset ($msg))      
+          <script type="text/javascript">      
+        toastr.error("<?php echo $msg?>");
+        </script>
+    @endif
   @endsection

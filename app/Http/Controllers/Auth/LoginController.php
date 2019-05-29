@@ -67,6 +67,36 @@ class LoginController extends Controller
             $request->session()->put('username', $verificar[0]->Nombre);
             $request->session()->put('email', $request->email);
 
+            $consultaClases = "";   
+            $consNoticias = ""; 
+            if ($type==3) {
+
+                $consultaClases = "SELECT 
+                B.id_clase AS IdClase,
+                C.Nombre AS NombreClase, 
+                B.seccion AS Seccion, 
+                B.Edificio AS Edificio, 
+                B.salon AS Salon, 
+                B.horario AS horario, 
+                D.Nombre as Catedratico,
+                E.Nombre as auxiliar 
+                FROM 
+                Alumno_Clase A INNER JOIN Clase B ON A.id_clase = B.id_clase 
+                INNER JOIN Curso C ON C.id_curso = B.id_curso 
+                INNER JOIN Catedratico D ON D.id_catedratico = B.id_catedratico 
+                INNER JOIN users E ON E.id = B.id
+                WHERE A.id=".$id.";";
+
+                $consNoticias = "SELECT C.id_noticia as IdNoticia, D.Nombre as Clase, B.seccion as Seccion, C.Titulo as Titulo, C.Fecha, E.Nombre as Nombre
+                                    FROM Alumno_Clase A
+                                    INNER JOIN Clase B ON A.id_clase = B.id_clase
+                                    INNER JOIN Noticia C ON C.id_clase = B.id_clase
+                                    INNER JOIN Curso D ON D.id_curso = B.id_curso
+                                    INNER JOIN users E ON E.id = C.id
+                                    WHERE A.id=".$id." ORDER BY C.Fecha Desc LIMIT 5";
+                
+            }else{
+
             $consultaClases = "SELECT A.id_clase AS IdClase, C.Nombre AS NombreClase, A.seccion AS Seccion, COUNT(E.id_clase) AS CantAlumnos, A.Edificio AS Edificio, A.salon AS Salon, A.horario AS horario, D.Nombre as Catedratico 
                                     FROM Clase A 
                                     INNER JOIN users B ON A.id = B.id 
@@ -81,6 +111,8 @@ class LoginController extends Controller
                                     INNER JOIN Noticia C ON C.id_clase = B.id_clase
                                     INNER JOIN Curso D ON D.id_curso = B.id_curso
                                     WHERE A.id=".$id." ORDER BY C.Fecha Desc LIMIT 5";
+            }
+            
 
             $consActividad = "SELECT *, CASE
                                             WHEN Mes = 1 THEN \"Ene\"
@@ -214,6 +246,8 @@ class LoginController extends Controller
 
             $news = DB::SELECT($consNoticias);
             $clases = DB::SELECT($consultaClases);
+
+            //return json_encode($clases);
               
             $request->session()->put('clases', $clases);
             $request->session()->put('news', $news);
@@ -234,5 +268,10 @@ class LoginController extends Controller
     {
         Auth::logout();
         return redirect('/login');
+    }
+
+    public function recuperar()
+    {
+        
     }
 }

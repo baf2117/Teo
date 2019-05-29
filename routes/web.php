@@ -10,12 +10,12 @@ Route::get('/registro', function () {
 
 Route::post('/registro', 'RegistroController@crearUsuario')->name('registro.crearUsuario');
 
-Route::get('/matricular', function () {
-    return view('matricular');
-});
+Route::get('/matricular', 'MatricularController@index')->name('matricular');
+
+Route::post('/matricularse', 'MatricularController@matricularse')->name('matricularse');
 
 Route::get('/graficas', function () {
-    return view('Reportes.graficas');
+    return view('Reportes.graficas'); 
 });
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -31,7 +31,8 @@ Route::post('/calendario', 'CalendarController@registro')->name('calendar.regist
 Route::post('/calendario/eliminar', 'CalendarController@eliminar')->name('calendar.eliminar');
 
 Route::post('/curso', 'CursoController@listado')->name('curso.listado');
-Route::get('/curso', 'CursoController@listado2')->name('curso.listado2');
+Route::post('/curso/listado2', 'CursoController@listado2')->name('curso.listado2');
+Route::get('/curso', 'CursoController@listado2')->name('curso.listado3');
 
 Route::post('/curso/notas', 'CursoController@notas')->name('curso.notas');
 Route::get('/curso/notas', 'CursoController@notas2')->name('curso.notas2');
@@ -41,7 +42,7 @@ Route::post('/curso/plantilla', 'CursoController@plantilla')->name('curso.planti
 Route::post('/curso/cargamasiva', 'CursoController@cargamasiva')->name('curso.cargamasiva');
 Route::post('/curso/recursos', 'CursoController@recursos')->name('curso.recursos');
 Route::post('/curso/guardarrecurso', 'CursoController@guardarrecurso')->name('curso.guardarrecurso');
-Route::post('/curso/descargarrecurso', 'CursoController@descargarrecurso')->name('curso.descargarrecurso');
+Route::post('/curso/descargar', 'CursoController@descargar')->name('curso.descargar');
 
 Route::get('/curso/pruebacorreo','CursoController@pruebacorreo')->name('curso.pruebacorreo');
 
@@ -95,3 +96,19 @@ Route::post('/admin/cat/edit2', 'AdminController@editcat2')->name('cat.edit2');
 Route::post('/estadistica', 'EstadisticasController@inicio')->name('estadistica');
 Route::post('/estadistica/generacion', 'EstadisticasController@generacion')->name('estadistica.generacion');
 Route::post('/estadistica/descarga', 'EstadisticasController@descarga')->name('estadistica.descarga');
+
+Route::get('/admin/carga', 'AdminController@carga')->name('admin.carga');
+Route::post('/admin/carga', 'AdminController@carga')->name('admin.carga');
+
+Route::post('/admin/cargamasiva', 'AdminController@cargamasiva')->name('admin.cargamasiva');
+
+Route::post('/mail/send', 'MailController@send')->name('recuperar');
+
+
+Route::post('/alumno/notas', 'AlumnoController@index')->name('alumno.notas');
+
+Route::post('/alumno/notas2', 'AlumnoController@index2')->name('alumno.notas2');
+
+Route::post('/alumno/recursos', 'AlumnoController@recursos')->name('alumno.recursos');
+
+Route::post('/alumno/descarga', 'AlumnoController@descargar')->name('alumno.descargar');

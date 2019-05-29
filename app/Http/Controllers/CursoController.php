@@ -86,18 +86,13 @@ class CursoController extends Controller
         $clases =Session::get('clases');
 
         $sentencia = "SELECT c.Nombre, c.Carnet, a.Nombre as actividad, a.id_actividad, b.Nota, b.id_act_alumno FROM Actividad a, Alumno_Actividad b, users c WHERE a.id_clase =".$idcurso." AND b.id_actividad = a.id_actividad AND b.id = c.id  ORDER by  c.Carnet, a.Nombre; ";
-        /*$sentencia = "SELECT c.Nombre, c.Carnet, a.Nombre as actividad, a.id_actividad, b.Nota, b.id_act_alumno FROM Actividad a
-                                                                                                                INNER JOIN Alumno_Actividad b on a.id_actividad = b.id_actividad
-                                                                                                                INNER JOIN users c on c.id = b.id
-                                                                                                                WHERE a.id_clase =".$idcurso.";";*/
-
+        
         $sentencia2 = "SELECT id_actividad as idactividad, Nombre as nombreactividad 
                                 FROM Actividad
                                 WHERE id_clase = ".$idcurso." AND Tipo='Parcial';";                                                                                                                                    
 
         $notas = DB::select($sentencia);
         $parciales = DB::select($sentencia2);
-        //echo json_encode($notas);
         return view('Curso.notas',compact('id2','clases','type','actividades','idcurso','notas','nombrecurso','parciales'));
     }
 
@@ -114,11 +109,7 @@ class CursoController extends Controller
         $clases =Session::get('clases');
 
         $sentencia = "SELECT c.Nombre, c.Carnet, a.Nombre as actividad, a.id_actividad, b.Nota, b.id_act_alumno FROM Actividad a, Alumno_Actividad b, users c WHERE a.id_clase =".$idcurso." AND b.id_actividad = a.id_actividad AND b.id = c.id  ORDER by  c.Carnet, a.Nombre; ";
-        /*$sentencia = "SELECT c.Nombre, c.Carnet, a.Nombre as actividad, a.id_actividad, b.Nota, b.id_act_alumno FROM Actividad a
-                                                                                                                INNER JOIN Alumno_Actividad b on a.id_actividad = b.id_actividad
-                                                                                                                INNER JOIN users c on c.id = b.id
-                                                                                                                WHERE a.id_clase =".$idcurso.";";*/
-
+     
         $sentencia2 = "SELECT id_actividad as idactividad, Nombre as nombreactividad 
                                 FROM Actividad
                                 WHERE id_clase = ".$idcurso." AND Tipo='Parcial';";                                
@@ -316,15 +307,13 @@ class CursoController extends Controller
         $sentencia = "SELECT c.Nombre, c.Carnet, a.Nombre as actividad, a.id_actividad, b.Nota, b.id_act_alumno FROM Actividad a, Alumno_Actividad b, users c WHERE a.id_clase =".$idcurso." AND b.id_actividad = a.id_actividad AND b.id = c.id  ORDER by  c.Carnet, a.Nombre; ";
 
         $notas = DB::select($sentencia);
-        //echo $notas[0]->Carnet;
-        //echo $notas[1]->Carnet;
-        //echo $notas[2]->Carnet;
         return view('Curso.notas',compact('id2','clases','type','actividades','idcurso','notas'));
     }
 
     public function recursos(Request $request)
     {
         $idcurso=$request->idcurso;
+        $nombrecurso =Session::get('nombrecurso');  
 
         $sentencia = "SELECT * FROM Recursos WHERE id_clase =".$idcurso."  ORDER by id_recurso DESC;";
         $recursos = DB::select($sentencia);
@@ -332,7 +321,8 @@ class CursoController extends Controller
         $id2 =Session::get('id2');
         $type =Session::get('tipo');
         $clases =Session::get('clases');
-        return view('Curso.recursos',compact('id2','clases','type','idcurso','recursos'));
+        $nombrecurso =Session::get('nombrecurso');  
+        return view('Curso.recursos',compact('id2','clases','type','idcurso','recursos','nombrecurso'));
     }
 
     public function guardarrecurso(Request $request)
@@ -379,12 +369,14 @@ class CursoController extends Controller
         $id2 =Session::get('id2');
         $type =Session::get('tipo');
         $clases =Session::get('clases');
-        return view('Curso.recursos',compact('id2','clases','type','idcurso','recursos'));
+        $nombrecurso =Session::get('nombrecurso');  
+        return view('Curso.recursos',compact('id2','clases','type','idcurso','recursos','nombrecurso'));
     }
 
-    public function descargarrecurso(Request $request)
+
+    public function descargar(Request $request)
     {
-        //echo "HOLA MUNDO";
+        //return "HOLA MUNDO";
         $idcurso=$request->idcurso;
         $idrecurso = $request->idrecurso;
         $storage_path = storage_path();
@@ -401,7 +393,8 @@ class CursoController extends Controller
         $id2 =Session::get('id2');
         $type =Session::get('tipo');
         $clases =Session::get('clases');
-        return view('Curso.recursos',compact('id2','clases','type','idcurso','recursos'));
+        $nombrecurso =Session::get('nombrecurso');  
+        return view('Curso.recursos',compact('id2','clases','type','idcurso','recursos','nombrecurso'));
 
         //return view('cerrar');
     }

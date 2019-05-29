@@ -1,7 +1,7 @@
 @extends('templates.main2')
 
 @section('content')
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-ligth">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background-image: url('/img/fondo3.jpg'); background-repeat: no-repeat;background-size: cover;">
             <div class="auth-box bg-dark border-top border-dark">
                 <div id="loginform">
                     <form class="form-horizontal m-t-20"  method="POST" action="{{ route('login') }}">
@@ -9,13 +9,13 @@
                             <div class="col-12">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
+                                        <span class="input-group-text text-white" id="basic-addon1" style="background-color: #1C9DCF"><i class="ti-user"></i></span>
                                     </div>
                                     <input id="email" name="email" type="email" value ="{{old('email')}}"class="form-control form-control-lg" placeholder="Correo Electrónico" aria-label="Username" aria-describedby="basic-addon1" required="">                                    
                                 </div>                                
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                        <span class="input-group-text text-white" id="basic-addon2" style="background-color: #1C9DCF"><i class="ti-pencil"></i></span>
                                     </div>
                                     <input id="password" name="password" type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Password" aria-describedby="basic-addon1" required="">
                                 </div>
@@ -25,7 +25,7 @@
                             <div class="col-12">
                                 <div class="form-group">                                    
                                         <div class="p-t-20">                                        
-                                            <button class="btn btn-block btn-lg btn-success" type="submit">Login</button>
+                                            <button class="btn btn-block btn-lg text-white" style="background-color: #15418B" type="submit">Login</button>
                                         </div>                                    
                                 </div>
                             </div>
@@ -41,21 +41,22 @@
                     </div>
                     <div class="row m-t-20">
                         <!-- Form -->
-                        <form class="col-12" action="index.html">
+                        <form class="col-12" method="POST" action="{{ route('recuperar') }}">
                             <!-- email -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
                                 </div>
-                                <input type="text" class="form-control form-control-lg" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+                                <input id="email" name="email" type="text" class="form-control form-control-lg" placeholder="Correo Electrónico" aria-label="email" aria-describedby="basic-addon1">
                             </div>
                             <!-- pwd -->
                             <div class="row m-t-20 p-t-20 border-top border-secondary">
                                 <div class="col-12">
                                     <a class="btn btn-success" href="#" id="to-login" name="action">Login</a>
-                                    <button class="btn btn-info float-right" type="button" name="action">Recuperar</button>
+                                    <button class="btn btn-info float-right" type="submit" name="action">Recuperar</button>
                                 </div>
                             </div>
+                            {{ csrf_field() }}
                         </form>
                     </div>
                 </div>
@@ -99,5 +100,19 @@
         } );    
         </script>
     @endif
+
+    @if(isset ($msg))      
+          <script type="text/javascript">      
+        toastr.error("<?php echo $msg?>");
+        </script>
+    @endif
+
+    @if(isset ($msg2))      
+          <script type="text/javascript">      
+        toastr.info("<?php echo $msg2?>");
+        </script>
+    @endif
+
+
     
 @endsection

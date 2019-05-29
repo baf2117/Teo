@@ -1,5 +1,5 @@
     <!DOCTYPE html>
-    <html dir="ltr" lang="es">
+    <html dir="ltr" lang="es" style="position: relative;">
 
     <head>
         <meta charset="utf-8">
@@ -13,10 +13,10 @@
         <link rel="shortcut icon" type="image/x-icon" href="/img/escudo.ico" />
         @yield('head')
     </head>
-    <body>
+    <body style="margin-bottom: 150px; margin: 0;">
          <div class="row">
             <div class="col-12  align-items-center">
-                <img src="/img/encabezado.png" style="width:100%; " class="img-fluid"> 
+                <img src="/img/BANNER.jpg" style="width:100%; " class="img-fluid"> 
             </div>
         </div>
         <div class="preloader">
@@ -71,6 +71,37 @@
                                     {
                                     ?>                                    
                                         <form method="POST" action="{{ route('curso.listado') }}">
+                                           <input type="hidden"  class="dropdown-item" name="idcurso" value="<?php echo "$item->IdClase"; ?>">
+                                           <input type="hidden"  class="dropdown-item" name="nombre" value="<?php echo "$item->NombreClase $item->Seccion"; ?>">
+                                           <input type="submit" class="dropdown-item" value=" 
+                                                <?php 
+                                                echo "$item->NombreClase $item->Seccion";
+                                                ?>
+                                            ">
+                                            {{ csrf_field() }}
+                                        </form>                                        
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                            </li>
+                            <?php
+                            }
+                            ?>
+                            <?php
+                            if($type==3)
+                                {
+                                    ?>
+                            <li class="nav-item dropdown"> 
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="top" title="Clases">
+                                    <i class=" font-24 mdi mdi-clipboard-account"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-left user-dd animated">
+                                    <?php
+                                    foreach ($clases as $key => $item) 
+                                    {
+                                    ?>                                    
+                                        <form method="POST" action="{{ route('alumno.notas') }}">
                                            <input type="hidden"  class="dropdown-item" name="idcurso" value="<?php echo "$item->IdClase"; ?>">
                                            <input type="hidden"  class="dropdown-item" name="nombre" value="<?php echo "$item->NombreClase $item->Seccion"; ?>">
                                            <input type="submit" class="dropdown-item" value=" 
@@ -157,7 +188,7 @@
                         </ul>
                         <ul class="navbar-nav float-right">    
                             <?php
-                            if($type==2)
+                            if($type!=1)
                                 {
                                     ?>                    
                             <li class="nav-item">
@@ -217,7 +248,7 @@
                                     <form method="POST" action="{{route ('logout')}}">
                                         <button class="dropdown-item" type="submit" >
                                             <i class="fa fa-power-off m-r-5 m-l-5"></i> 
-                                            Logout
+                                            Cerrar Sesión
                                         </button>
                                         {{ csrf_field() }}
                                     </form>
@@ -230,13 +261,17 @@
             </header>
             
         @yield('content')
-
-        <footer class="footer text-center">
-                Departamento de Matem&aacutetica FIUSAC<br/>
+        
+        <footer class="footer text-center" style="bottom: 0 !important; bottom: -1px; min-height: 150px; width: 100%;">
+            Departamento de Matem&aacutetica FIUSAC<br/>
                 Brayan Alexander Flores<br/>
                 César Estuardo Morales Toledo<br/>
                 Versión 1.0.0
+            <!--<div class="img-fluid align-items-center" style="background-image: url('/img/pie.png'); background-repeat: no-repeat; background-size: cover; min-height: 150px; background-position: center; bottom: 0; position: absolute; width: 100%;">-->
+                <div class="img-fluid align-items-center" style="background-image: url('/img/pie.png'); background-repeat: no-repeat; background-size: cover; min-height: 150px; background-position: center; width: 100%;">      
+                </div>
         </footer>
+    
         </div>
 
     </div>

@@ -10,11 +10,11 @@
     @section('curso')
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <span class="d-none d-md-block"><?php echo $nombrecurso; ?><i class="fa fa-angle-down"></i></span>
+         <span class="d-none d-md-block"><?php echo $nombrecurso; ?> <i class="mdi mdi-menu"></i></span>
          <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
      </a>
      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <form method="POST" action="{{ route('curso.listado') }}">
+        <form method="POST" action="{{ route('curso.listado2') }}">
                <input type="hidden" name="idcurso" value="<?php echo "$idcurso"; ?>">
                <input type="submit" class="dropdown-item" value="Listado de Alumnos">
                 {{ csrf_field() }}
@@ -360,6 +360,9 @@
     $(document).ready(function() {
         $('#notas').DataTable( {
             data: dataSet,
+             language : {
+            url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
             scroller: true,
             columns: [
             { title: "Nombre" },
@@ -415,6 +418,9 @@
     $(document).ready(function() {
         $('#notas').DataTable( {
             data: dataSet,
+             language : {
+            url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
             deferRender:    true,
             scroller:       true,
             columns: [

@@ -615,4 +615,104 @@ class AdminController extends Controller
        $request->session()->put('msg', "Datos del catedrático actualizados");
         return redirect("/admin/cat");
     }
+
+    public function carga(Request $request){
+        $id2 =Session::get('id2');
+        $type =Session::get('tipo');
+        $clases =Session::get('clases');
+        $news =Session::get('news');
+
+        $mes = date("m"); 
+        $semestre =1;
+        if($mes>6)
+        {
+            $semestre=2;
+        }
+        $year = date("y")+2000; 
+
+        $busqueda1 = "SELECT a.id_clase as id, a.semestre, a.anio, a.seccion, a.Edificio, a.salon, a.horario, b.Nombre as Catedratico,c.Nombre as auxiliar, d.Nombre as curso, d.id_curso  FROM Clase a, Catedratico b, users c , Curso d where a.id_catedratico = b.id_catedratico and c.id = a.id AND d.id_curso = a.id_curso  order by c.Nombre,d.id_curso ASC";
+        $cursos = DB::SELECT($busqueda1);
+
+        $busqueda1 ="SELECT Nombre, id FROM users WHERE tipo = 2";
+        $auxs = DB::SELECT($busqueda1);
+
+        $busqueda1 = "SELECT id_curso as id, Nombre FROM Curso;";
+        $cursos2 = DB::SELECT($busqueda1);
+
+        $busqueda1 = "SELECT id_catedratico as id, Nombre FROM Catedratico;";
+        $cat = DB::SELECT($busqueda1);
+
+        if(Session::has('msg'))
+        {
+            $msg = Session::get('msg');
+            Session::forget('msg');
+            return view('Admin.cargamasiva',compact('id2','clases','type','news','cursos','auxs','cursos2','cat','msg'));
+        }
+        if(Session::has('msg2'))
+        {
+            $msg2 = Session::get('msg2');
+            Session::forget('msg2');
+            return view('Admin.cargamasiva',compact('id2','clases','type','news','cursos','auxs','cursos2','cat','msg2'));
+        }
+
+        return view('Admin.cargamasiva',compact('id2','clases','type','news','cursos','auxs','cursos2','cat'));  
+    }
+
+    public function cargamasiva(Request $request){
+        $periodo=$request->Actividad;
+        $archivo=$request->file('archivo');
+        $nombre = $archivo->getClientOriginalName();
+        \Storage::disk('local')->put($nombre, \File::get($archivo));
+        $storage_path = storage_path();
+        $url = $storage_path.'/app/storage/'.$nombre;
+
+        $longitudDeLinea = 100;
+        $delimitador = ","; 
+        
+        $gestor = fopen($url, "r");
+        if (!$gestor) {
+            exit("No se puede abrir el archivo $nombreArchivo");
+        }
+        
+        $numeroDeFila = 1;
+        while (($fila = fgetcsv($gestor, $longitudDeLinea, $delimitador)) !== false) {
+            if ($numeroDeFila > 1) {
+                $codigo = intval($fila[0]);
+                if(($codigo==101)||($codigo==103)||($codigo==107)||($codigo==112)||($codigo==114)||($codigo==116)||($codigo==118)||($codigo==120)||($codigo==122)||($codigo==123)||($codigo==960)||($codigo==962)){
+
+                    $anio = date("Y");
+                    $nombrecat = $fila[14];
+
+                    $sentencia = "SELECT id_catedratico FROM Catedratico WHERE Nombre = '".$nombrecat."';";
+                    $actividad = DB::SELECT($sentencia);
+
+                    if(sizeof($actividad)==0){
+                        $sentencia = "INSERT INTO Catedratico (Nombre) VALUES ('".$nombrecat."');";
+                        DB::insert($sentencia);
+                        DB::commit();
+                    }
+
+                    $sentencia = "SELECT id_catedratico FROM Catedratico WHERE Nombre = '".$nombrecat."';";
+                    $actividad = DB::SELECT($sentencia);
+                    $id_actividad = $actividad[0]->id_catedratico;
+                    
+                    
+                    $seccion = $fila[2];
+                    $edificio = $fila[3];
+                    $salon = $fila[4];
+                    $horario = $fila[5]." - ".$fila[6];
+
+                    $sentencia = "INSERT INTO Clase (seccion,Edificio,salon,horario,semestre,anio,id_curso,id_catedratico) VALUES ('".$seccion."','".$edificio."','".$salon."','".$horario."',".$periodo.",".$anio.",".$codigo.",".$id_actividad.");";
+                    DB::insert($sentencia);
+                    DB::commit();
+                }   
+            }
+            
+            $numeroDeFila++;
+        }
+        fclose($gestor);
+
+        $request->session()->put('msg', "Información de cursos cargada correctamente");
+        return redirect("/admin/carga");
+    }    
 }

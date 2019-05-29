@@ -11,11 +11,11 @@
     @section('curso')
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-         <span class="d-none d-md-block"><?php echo Session::get('nombrecurso');?> <i class="mdi mdi-menu"></i></i></span>
+         <span class="d-none d-md-block"><?php echo $nombrecurso; ?> <i class="mdi mdi-menu"></i></span>
          <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
-     </a>
-     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <form method="POST" action="{{ route('curso.listado') }}">
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <form method="POST" action="{{ route('curso.listado2') }}">
                <input type="hidden" name="idcurso" value="<?php echo "$idcurso"; ?>">
                <input type="submit" class="dropdown-item" value="Listado de Alumnos">
                 {{ csrf_field() }}
@@ -29,14 +29,14 @@
                <input type="hidden" name="idcurso" value="<?php echo "$idcurso"; ?>">
                <input type="submit" class="dropdown-item" value="Recursos">
                 {{ csrf_field() }}
-            </form>  
+            </form> 
             <form method="POST" action="{{ route('estadistica') }}">
                <input type="hidden" name="idcurso" value="<?php echo "$idcurso"; ?>">
                <input type="submit" class="dropdown-item" value="Estadísticas">
                 {{ csrf_field() }}
             </form>
-    </div>
-</li>
+        </div>
+    </li>
 @endsection
 @section('content')
 <div>
@@ -131,7 +131,7 @@
 </div>
 
 <div style="display: none">
-    <form id="notasend" name="notasend" method="POST" action="{{ route('curso.descargarrecurso') }}">
+    <form id="notasend" name="notasend" method="POST" action="{{ route('curso.descargar') }}">
         <input type="text" name="idcurso" id="idcurso">
         <input type="text" name="idrecurso" id="idrecurso">
         {{ csrf_field() }}
@@ -172,7 +172,7 @@
 <script src="/assets/extra-libs/DataTables/dataTables.scroller.min.js"></script>
 
 
-<script type="text/javascript">
+<script>
     
     function postear(idcurso, idrecurso){
         var padre = document.getElementById("notasend");
@@ -184,7 +184,8 @@
 
         document.notasend.submit();
     }
-
+</script>
+<script>
     $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -205,6 +206,10 @@
     $(document).ready(function() {
         $('#recursos').DataTable( {
             data: dataSet,
+             language : {
+            url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+            },
+            deferRender:true,
             scroller: true,
             columns: [
             { title: "Nombre Recurso" },
@@ -233,11 +238,9 @@
                     console.log(data);
                 }
             });
-            //$.post('register', { idcurso:varidcurso, idrecurso:varidrecurso}, function(data){
-            //    console.log(data);
-            //});
         });
     });
 
     
 </script>
+@endsection

@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+require '/var/www/laravel/Tesis/Teo/vendor/autoload.php';
+
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use Charts;
+use CpChart\Data;
+use CpChart\Image;
 
 class EstadisticasController extends Controller
 {
@@ -243,6 +248,69 @@ class EstadisticasController extends Controller
                                 WHERE A.Nota>=0 AND B.id_actividad_padre=".$examen."
                                 GROUP BY nombre, idactividad;";
         $temaspromedio = DB::select($stemaspromedio);        
+
+        $arrtems = [];
+        $arrnotas = [];
+        foreach ($temaspromedio as $key => $item) {
+            array_push($arrtems, $item->nombre);
+            array_push($arrnotas, $item->npromedio);
+        }
+
+
+/* Create and populate the Data object */
+$data = new Data();
+$data->addPoints($arrnotas, "Promedio");
+$data->setAxisName(0, "Promedio");
+$data->addPoints($arrtems, "Temas");
+$data->setSerieDescription("Temas", "Temas");
+$data->setAbscissa("Temas");
+
+/* Create the Image object */
+$image = new Image(300, 300, $data);
+$image->drawGradientArea(0, 0, 300, 300, DIRECTION_VERTICAL, [
+    "StartR" => 240,
+    "StartG" => 240,
+    "StartB" => 240,
+    "EndR" => 180,
+    "EndG" => 180,
+    "EndB" => 180,
+    "Alpha" => 20
+]);
+$image->drawGradientArea(0, 0, 300, 300, DIRECTION_HORIZONTAL, [
+    "StartR" => 240,
+    "StartG" => 240,
+    "StartB" => 240,
+    "EndR" => 180,
+    "EndG" => 180,
+    "EndB" => 180,
+    "Alpha" => 100
+]);
+$image->setFontProperties(["FontName" => "pf_arma_five.ttf", "FontSize" => 7]);
+
+/* Draw the chart scale */
+$image->setGraphArea(50, 15, 285, 285);
+$image->drawScale([
+    "CycleBackground" => true,
+    "DrawSubTicks" => true,
+    "GridR" => 0,
+    "GridG" => 0,
+    "GridB" => 0,
+    "GridAlpha" => 10
+    //"Pos" => SCALE_POS_TOPBOTTOM
+]);
+
+/* Turn on shadow computing */
+$image->setShadow(true, ["X" => 1, "Y" => 1, "R" => 0, "G" => 0, "B" => 0, "Alpha" => 10]);
+
+/* Draw the chart */
+$image->drawBarChart(["DisplayPos" => LABEL_POS_INSIDE, "DisplayValues" => true, "Rounded" => true, "Surrounding" => 30]);
+
+/* Write the legend */
+$image->drawLegend(570, 215, ["Style" => LEGEND_NOBORDER, "Mode" => LEGEND_VERTICAL]);
+
+/* Render the picture (choose the best way) */
+$image->render("ejemplito.png");
+
 
         $pdf = \PDF::loadView('Reportes.pdf', compact('id2','clases','type','news','nombrecurso','idcurso','nomex','datos','inscritos','examinados','aprobados','porcaproinscri','porcaproexa','reprobados','porcrepro','ausentes','porcausentes','cero','promedio','desv','temaspromedio'));
         return $pdf->download('Estadistica.pdf');

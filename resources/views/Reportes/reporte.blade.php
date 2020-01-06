@@ -1,4 +1,4 @@
-@extends('templates.main')
+@extends('templates.main3')
 
 @section('head')
 <link rel="stylesheet" type="text/css" href="/assets/extra-libs/multicheck/multicheck.css">
@@ -9,7 +9,7 @@
 @section('curso')
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       <span class="d-none d-md-block"><?php echo $nombrecurso; ?><i class="fa fa-angle-down"></i></span>
+       <span class="d-none d-md-block"><?php echo $nombrecurso; ?> <i class="mdi mdi-menu"></i></span>
        <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
    </a>
    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -33,20 +33,18 @@
                <input type="submit" class="dropdown-item" value="Estadísticas">
                 {{ csrf_field() }}
             </form>
-</div>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       <span class="d-none d-md-block">Actividad<i class="fa fa-angle-down"></i></span>
-       <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
-   </a>
-   <!--<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <a class="dropdown-item" href="#">Primer Parcial</a>          
-    <a class="dropdown-item" href="#">Segundo Parcial</a>
-    <a class="dropdown-item" href="#">Tercer Parcial</a>
-    <a class="dropdown-item" href="#">Final</a>
-    <a class="dropdown-item" href="#">Informe Curso</a>
-    <a class="dropdown-item" href="#">Primera Retrasada</a>-->
+            <?php
+             if($type>3)
+                {
+            ?>
+            <form method="POST" action="{{ route('permisos') }}">
+               <input type="hidden" name="idcurso" value="<?php echo "$idcurso"; ?>">
+               <input type="submit" class="dropdown-item" value="Permisos">
+                {{ csrf_field() }}
+            </form>
+            <?php
+                }
+            ?>
 </div>
 </li>
 @endsection
@@ -103,7 +101,7 @@
                       <td><?php echo $porcaproinscri;?>%</td>
                   </tr>
                   <tr>
-                      <td>(%) Aprobados/inscritos</td>
+                      <td>(%) Aprobados/examinados</td>
                       <td><?php echo $porcaproexa;?>%</td>
                   </tr>
                   <tr>                                    
@@ -138,6 +136,9 @@
           </table>
       </div>
   </div>
+  <?php
+  if($temita == 1){
+  ?>
   <div class="col-md-6 align-items-center">
     <div class="card">
         <div class="card-body">
@@ -162,37 +163,47 @@
     <div id="columnchart_values" style="height: 500px;"></div>                          
 </div>
 </div>
+<?php
+}
+?>
 </div>
 <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-4">
     </div>
-    <div class="col-md-2">
+    <!--<div class="col-md-2">
         <a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-success btn-block waves-effect waves-light">
             <i class="mdi mdi-library-plus"></i> 
             Tema
         </a>
-    </div>
-    <div class="col-md-2">            
+    </div>-->
+    <!--<div class="col-md-2">            
         <button type="button" class="btn m-t-20 btn-block btn-warning ">
             <i class="mdi mdi-content-save"></i> 
             Guardar
         </button>
-    </div>
-    <div class="col-md-2">            
+    </div>-->
+    <!--<div class="col-md-2">            
         <a href="javascript:void(0)" data-toggle="modal" data-target="#edit-tema" class="btn m-t-20 btn-secondary btn-block waves-effect waves-light">
             <i class="mdi mdi-table-edit"></i> 
             Editar
         </a>
-    </div>
+    </div>-->
     <div class="col-md-2">
-        <a href="javascript:void(0)" data-toggle="modal" data-target="" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
-            <i class="mdi mdi-send"></i> 
-            Enviar
-        </a>
+      <form method="POST" action="{{ route('estadistica.envio') }}">
+        <input type="hidden" name="idcurso" value="<?php echo "$idcurso"; ?>">
+                            <input type="hidden" name="temita" value="<?php echo "$temita"; ?>">
+                            <input type="hidden" name="Actividad" value="<?php echo "$examen"; ?>">
+                              <button type="submit" data-toggle="modal" data-target="" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
+                                  <i class="mdi mdi-send"></i> 
+                                  Enviar
+                              </button>
+                            {{ csrf_field() }}
+      </form>
     </div>
     <div class="col-md-2">
       <form method="POST" action="{{ route('estadistica.descarga') }}">
                             <input type="hidden" name="idcurso" value="<?php echo "$idcurso"; ?>">
+                            <input type="hidden" name="temita" value="<?php echo "$temita"; ?>">
                             <input type="hidden" name="Actividad" value="<?php echo "$examen"; ?>">
                               <button type="submit" data-toggle="modal" data-target="" class="btn m-t-20 btn-danger btn-block waves-effect waves-light">
                                   <i class="mdi mdi-cloud-download"></i> 
@@ -288,9 +299,6 @@
         </div>
     </div>
 </div>
-<footer class="footer text-center">
-    Departamento de Matem&aacuteticas FIUSAC
-</footer>
 </div>
 
 @endsection
@@ -308,6 +316,20 @@
 <script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="/assets/libs/toastr/build/toastr.min.js"></script>
+
+@if($errors->any())
+<script type="text/javascript">
+   $(document).ready(function() {                
+    toastr.error('{{ $errors->first() }}');
+} );    
+</script>
+@endif
+<script>
+    $('[data-toggle="tooltip"]').tooltip();
+    $(".preloader").fadeOut();
+</script>
+
 <script type="text/javascript">
     google.charts.load("current", {packages:['corechart']});
     google.charts.setOnLoadCallback(drawChart);
@@ -401,5 +423,8 @@
     } );
 }
 </script>
+
+
+
 
 @endsection

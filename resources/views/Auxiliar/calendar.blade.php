@@ -88,7 +88,7 @@
                                                 <input class="form-control form-white" id ="nombre" name="nombre" placeholder="Nombre de la Actividad" type="text" required=""/>
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="control-label">Fecha Inicio</label>
+                                                <label class="control-label">Fecha Entrega</label>
                                                 <div class="input-group">
                                                     <input type="text" id="fecha" name="fecha" class="form-control mydatepicker" placeholder="mm/dd/yyyy" required="">
                                                     <div class="input-group-append">

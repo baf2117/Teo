@@ -57,7 +57,6 @@
 <script src="/dist/js/custom.min.js"></script>
 <script src="/assets/libs/moment/min/moment.min.js"></script>
 <script src="/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-<script src="/dist/js/pages/calendar/cal-init.js"></script>
 <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
 <script src="/dist/js/pages/mask/mask.init.js"></script>
@@ -72,7 +71,7 @@
 <script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
 <script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
-<script src="/assets/extra-libs/DataTables/dataTables.scroller.min.js"></script>
+
 
 <script>
     var dataSet = [
@@ -85,20 +84,46 @@
     }
       
     $j = 0;
+    $zona = 0;
+    $final = 0;
     for ($i = 0; $i <$tama; $i++) 
     {
         echo "[";
         for ($x =0; $x < count($actividades); $x++) 
         {
-            if($notas[$x+$j]->Nota<0){
-                echo "0.00,";
-            }else{
-                echo $notas[$x+$j]->Nota.",";
-            }
+            if($notas[$x+$j]->Tipo!="Final")
+                {
+                    if($notas[$x+$j]->Nota<0){
+                        echo "0.00,";
+                    }else{
+                        echo $notas[$x+$j]->Nota.",";
+                        $zona+=($notas[$x+$j]->Nota*$notas[$x+$j]->Ponderacion)/100;
+                    }
+                }
         }
-        echo "],";
+        echo $zona.",";
+
+        $bandera_final = 0;
+        for ($x =0; $x < count($actividades); $x++) 
+        {
+            if($notas[$x+$j]->Tipo=="Final")
+                {   
+                    $bandera_final = 1;
+                    if($notas[$x+$j]->Nota<0){
+                        echo "0.00,";
+                    }else{
+                        echo $notas[$x+$j]->Nota.",";
+                        $final = ($notas[$x+$j]->Nota*0.25);
+                    }
+                }
+        }
+        $notafin = $final + $zona;
+        if($bandera_final==0)
+            echo "0.00,";
+        echo $notafin."]";
         $j= $j + count($actividades); 
     }
+    
     ?>
     ];
     $(document).ready(function() {
@@ -112,9 +137,18 @@
             <?php
             foreach ($actividades as $key => $item) 
             {
-                echo "{ title: \"$item->Nombre - $item->Ponderacion pts \" },";
+                if($item->Tipo!="Final")
+                {
+                    $texto =$item->Nombre;
+                    $texto = str_replace(" ", "_", $texto);
+                    $texto = $texto." ".$item->Ponderacion."pts";
+                    echo "{ title: \"$texto\" },"; 
+                }
             }
             ?>
+            { title: "Zona" },
+            { title: "Examen_Final" },
+            { title: "Nota_Final" },
             ]
         } );
         var myTable = $('#notas').DataTable();

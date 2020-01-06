@@ -21,11 +21,25 @@
         <div class="col-6 align-items-center">
             <div class="card">
                 <div class="card-body">
+                	<table>
+                		<tbody>
+            			<tr>
+            				<td WIDTH="300" >
                     <h3 class="card-title">Informe de <?php echo $nomex;?></h3>   
                     <h4><?php echo $datos[0]->nombrecurso;?>, sección <?php echo $datos[0]->seccion;?></h4>
                     <h5><?php echo $datos[0]->semestre;?> Semestre, <?php echo $datos[0]->anio;?></h5>
                     <h5>Cat. <?php echo $datos[0]->nombrecatedratico;?></h5>
                     <h5>Aux. <?php echo $datos[0]->nombreaux;?></h5>
+                    	</td>
+                    	<td width="50">
+                    		
+                    	</td>
+                    	<td>
+                    		<img src="/var/www/html/Despligue/Teo/public/img/LOGO-FIUSAC.png" />
+                    	</td>
+                    	</tr>
+                    </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -51,7 +65,7 @@
                       <td><?php echo $porcaproinscri;?>%</td>
                   </tr>
                   <tr>
-                      <td>(%) Aprobados/inscritos</td>
+                      <td>(%) Aprobados/examinados</td>
                       <td><?php echo $porcaproexa;?>%</td>
                   </tr>
                   <tr>                                    
@@ -86,6 +100,9 @@
           </table>
   </div>
 </div>
+<?php
+if($temita == 1){
+?>
 <div class="row">
 <h5>Temas</h5>  
 </div>
@@ -129,13 +146,15 @@
   </td>
 
   <td>
-  	<img src="/var/www/laravel/Tesis/Teo/public/ejemplito.png" />
+  	<img src="/var/www/html/Despligue/Teo/public/ejemplito.png" />
   </td>	
   </tr>
   </tbody>
   </table>
 </div>
-
+<?php
+}
+?>
 </div>
 
       

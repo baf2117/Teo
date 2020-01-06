@@ -72,25 +72,4 @@
     <script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
     <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="/assets/libs/toastr/build/toastr.min.js"></script>
-    <script>
-
-       
-        
-    $(document).ready(function() {
-
-        @if($errors->any())            
-        toastr.error('{!!$errors->first('email',':message')!!}');   
-        @endif
-
-        @if(isset ($msg))              
-        toastr.success("<?php echo $msg?>");
-        @endif
-
-        @if(isset ($msg2))              
-        toastr.error("<?php echo $msg2?>");
-        @endif
-
-    } );
-</script>
-
 @endsection

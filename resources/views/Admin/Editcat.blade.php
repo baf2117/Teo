@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="lname" class="col-sm-3 text-right control-label col-form-label">Area</label>
+                                    <label for="lname" class="col-sm-3 text-right control-label col-form-label">Jefe</label>
                                     <div class="col-sm-9">
                                         <select class="form-control form-white" data-placeholder="Área" id ="area" name="area" disabled="true" required>
                                         <option value="<?php echo $actual->area;?>"><?php echo $actual->area;?></option>

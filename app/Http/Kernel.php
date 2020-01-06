@@ -55,6 +55,8 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'aux' => \App\Http\Middleware\AuxMiddleware::class,
         'alum' => \App\Http\Middleware\AlumnoMiddleware::class,
+	'cat' => \App\Http\Middleware\CatMiddleware::class,
+        'jefe' => \App\Http\Middleware\JefeMiddleware::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,

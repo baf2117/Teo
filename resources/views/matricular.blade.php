@@ -109,11 +109,36 @@
                         </div>
                         <div class="row">
                             <div class="col-md-5"></div>
+                            <?php
+                                $bandera = 0;
+                                foreach ($clases_asig as $key => $item2) 
+                                {
+                                    if($item2->id_clase==$item->id_curso)
+                                    {
+                                        $bandera=1;                                    
+                                    }
+                                }  
+                                if($bandera==0)
+                                {
+                            ?>
                             <form class="col-md-2" method="POST" action="{{ route('matricularse') }}">
                                 <input type="text" hidden="true" name="id_clase" value="<?php echo $item->id_curso;?>">
                                 <button type="submit" class="btn btn-block btn-cyan">
-                                    <i class="mdi mdi-account-plus"></i>Inscribirse
+                                    <i class="mdi mdi-account-plus"></i> Inscribirse
                                 </button>
+                            <?php
+                                }
+                                else
+                                {
+                            ?>
+                            <form class="col-md-2" method="POST" action="{{ route('desmatricularse') }}">
+                                <input type="text" hidden="true" name="id_clase" value="<?php echo $item->id_curso;?>">
+                                <button type="submit" class="btn btn-block btn-danger">
+                                    <i class="mdi mdi-account-minus"></i> Desasignar
+                                </button>
+                            <?php
+                                }
+                            ?>
                                 {{ csrf_field() }}
                             </form>
                         </div>

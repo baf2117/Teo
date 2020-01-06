@@ -18,7 +18,6 @@
                                     <table id="estudiates" class="table table-striped table-bordered display">                                   
                                     </table>
                                 </div>
-
                             </div>
                         </div>
                     </div>

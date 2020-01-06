@@ -14,7 +14,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Auxiliares</h5>
+                        <h5 class="card-title">Clases</h5>
                         <div class="table-responsive">
                             <table id="estudiates" class="table table-striped table-bordered display">  </table>
                         </div>
@@ -23,25 +23,11 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3">
-
+            <div class="col-md-4">
             </div>
             <div class="col-md-2">
                 <a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-curso" class="btn m-t-20 btn-success btn-block waves-effect waves-light">
-                    <i class="mdi mdi-clipboard-account"></i> 
-                    Curso
-                </a>
-            </div>
-            <div class="col-md-2">            
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#add-aux" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
-                    <i class="mdi mdi-account-plus"></i> 
-                    Auxiliar
-                </a>
-            </div>
-            <div class="col-md-2">            
-                <a href="javascript:void(0)" data-toggle="modal" data-target="#add-cat" class="btn m-t-20 btn-warning btn-block waves-effect waves-light">
-                    <i class="mdi mdi-account-plus"></i> 
-                    Catedrático
+                    <i class="mdi mdi-clipboard-account"></i>                     Clase
                 </a>
             </div>
             <div class="col-md-2">
@@ -59,11 +45,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"><strong>Asignar</strong> una Auxiliar</h4>
+                    <h4 class="modal-title"><strong>Crear</strong> una Clase</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="{{ route('aux.asignar') }}">
+                    <form method="POST" action="{{ route('clase.crear') }}">
                         <div class="row card-body">
                             <div class="col-md-6">
                                 <label class="control-label">Auxiliar</label>

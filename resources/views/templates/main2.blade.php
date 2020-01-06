@@ -27,37 +27,67 @@
             </div>
         </div>
         <div id="main-wrapper">            
-            <header class="topbar" data-navbarbg="skin5">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
-                <div class="navbar-collapse" id="navbarSupportedContent" data-navbarbg="skin5">                        
-                    <ul class="navbar-nav float-left mr-auto"> 
-                         <li class="nav-item"> 
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic " href="/horarios" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="top" title="Horarios">
-                                <i class="font-24 mdi mdi-calendar"></i>
+            <header>
+            <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item my-auto">
+                            <div class="dropdown">
+                                <a class="nav-link text-muted waves-effect waves-dark pro-pic dropdown-toggle" role="button" href="#" id="nosotrosMenu" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
+                                    <i class=" font-24 md mdi mdi-calendar"></i><span class="ml-2">Horarios</span>
+                                </a>
+                                <div class="dropdown-menu bg-dark text-light border border-dark" aria-labelledby="nosotrosMenu">
+                                    <a class="dropdown-item bg-dark text-light" href="/horarios">Clases</a>
+                                    <a class="dropdown-item bg-dark text-light" href="#">Examen Final</a>
+                                    <a class="dropdown-item bg-dark text-light" href="#">Primera Retrasada</a>
+                                    <a class="dropdown-item bg-dark text-light" href="#">Segunda Retrasada</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item my-auto">
+                            <div class="dropdown">
+                                <a class="nav-link text-muted waves-effect waves-dark pro-pic dropdown-toggle" role="button" href="#" id="nosotrosMenu" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" >
+                                    <i class=" font-24 md mdi mdi-hexagon-multiple"></i><span class="ml-2">Nosotros</span>
+                                </a>
+                                <div class="dropdown-menu bg-dark text-light border border-dark" aria-labelledby="nosotrosMenu">
+                                    <a class="dropdown-item bg-dark text-light" href="/nosotros/objetivos">Objetivos</a>
+                                    <a class="dropdown-item bg-dark text-light" href="/nosotros/misvis">Misión y Visión</a>
+                                    <a class="dropdown-item bg-dark text-light" href="/nosotros/historia">Historia</a>
+                                    <a class="dropdown-item bg-dark text-light" href="/nosotros/equipo">Personal</a>
+                                </div>
+                            </div>
+                        </li>
+                        <!--<li class="nav-item my-auto">
+                            <a class="nav-link text-muted waves-effect waves-dark pro-pic" href="#" aria-expanded="false" aria-haspopup="true" data-toggle="tooltip" data-placement="top" title="Documentos">
+                                <i class=" font-24 md mdi mdi-package"></i><span class="ml-2"></span>
                             </a>
-                        </li> 
-                        <li class="nav-item"> 
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="http://mate.ingenieria.usac.edu.gt/olimpiada/index.php" aria-expanded="false" aria-haspopup="true" data-toggle="tooltip" data-placement="top" title="Olimpiada">
-                                <i class=" font-24 md mdi mdi-trophy"></i>
+                        </li> -->
+                        <li class="nav-item my-auto"> 
+                            <a class="nav-link text-muted waves-effect waves-dark pro-pic" href="/Recursos" aria-expanded="false" aria-haspopup="true" data-toggle="tooltip" data-placement="top" title="Recursos">
+                                <i class=" font-24 md mdi mdi-library"></i><span class="ml-2"></span>
+                            </a>
+                        </li>
+                        <li class="nav-item my-auto"> 
+                            <a class="nav-link text-muted waves-effect waves-dark pro-pic" href="/enlaces" aria-expanded="false" aria-haspopup="true" data-toggle="tooltip" data-placement="top" title="Enlaces">
+                                <i class="my-auto font-24 md mdi mdi-link"></i><span class="ml-2 my-auto"></span>
                             </a>
                         </li>
                     </ul>
                     <ul class="navbar-nav float-right"> 
-                        <li class="nav-item"> 
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic " href="/login" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="top" title="Login">
-                                <i class="font-24 mdi mdi-account"></i>
+                        <li class="nav-item my-auto"> 
+                            <a class="nav-link text-muted waves-effect waves-dark pro-pic " href="/login" aria-haspopup="true" aria-expanded="false" data-toggle="tooltip" data-placement="top" title="Login">
+                                <i class="my-auto font-24 mdi mdi-account"></i><span class="ml-2 my-auto"></span>
                             </a>
                         </li> 
                     </ul>
                 </div>
             </nav>
         </header>
-            
         @yield('content')
-
     </div>
-
         @yield('script')
-      
     </body>
-    </html>
+</html>

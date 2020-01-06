@@ -25,7 +25,7 @@
                             <div class="col-12">
                                 <div class="form-group">                                    
                                         <div class="p-t-20">                                        
-                                            <button class="btn btn-block btn-lg text-white" style="background-color: #15418B" type="submit">Login</button>
+                                            <button class="btn btn-block btn-lg text-white" style="background-color: #15418B" type="submit">Iniciar Sesion</button>
                                         </div>                                    
                                 </div>
                             </div>

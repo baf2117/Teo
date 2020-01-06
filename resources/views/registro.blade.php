@@ -1,10 +1,9 @@
 @extends('templates.main2')
 
 @section('content')
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-ligth">
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background-image: url('/img/fondo3.jpg'); background-repeat: no-repeat;background-size: cover;">
             <div class="auth-box bg-dark border-top border-dark">
                 <div>
-                    <!-- Form -->
                     <form class="form-horizontal m-t-20" method="POST" action="{{ route('registro.crearUsuario') }}">
                         <div class="row p-b-30">
                          <div class="col-12">

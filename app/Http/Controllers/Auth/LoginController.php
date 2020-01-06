@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Http\Controllers\AdminController;
 
 use Auth;
 use DB;
 use Redirect;
 use Session;
-
 
 class LoginController extends Controller
 {
@@ -67,8 +67,18 @@ class LoginController extends Controller
             $request->session()->put('username', $verificar[0]->Nombre);
             $request->session()->put('email', $request->email);
 
+            $busqueda = "SELECT * FROM Matricular";
+            $verificar = DB::SELECT($busqueda); 
+            $request->session()->put('activo',$verificar[0]->activo);
+
             $consultaClases = "";   
             $consNoticias = ""; 
+            $consActividad = "";
+
+            $mes = date("m"); 
+            $semestre = AdminController::semestre($mes);
+            $year = date("Y");
+
             if ($type==3) {
 
                 $consultaClases = "SELECT 
@@ -80,12 +90,12 @@ class LoginController extends Controller
                 B.horario AS horario, 
                 D.Nombre as Catedratico,
                 E.Nombre as auxiliar 
-                FROM 
+                FROM  
                 Alumno_Clase A INNER JOIN Clase B ON A.id_clase = B.id_clase 
                 INNER JOIN Curso C ON C.id_curso = B.id_curso 
-                INNER JOIN Catedratico D ON D.id_catedratico = B.id_catedratico 
-                INNER JOIN users E ON E.id = B.id
-                WHERE A.id=".$id.";";
+                LEFT JOIN users D ON D.id = B.id_catedratico
+                LEFT JOIN users E ON E.id = B.id
+                WHERE A.id=".$id." AND B.semestre = ".$semestre." AND B.anio = ".$year.";";
 
                 $consNoticias = "SELECT C.id_noticia as IdNoticia, D.Nombre as Clase, B.seccion as Seccion, C.Titulo as Titulo, C.Fecha, E.Nombre as Nombre
                                     FROM Alumno_Clase A
@@ -93,26 +103,55 @@ class LoginController extends Controller
                                     INNER JOIN Noticia C ON C.id_clase = B.id_clase
                                     INNER JOIN Curso D ON D.id_curso = B.id_curso
                                     INNER JOIN users E ON E.id = C.id
-                                    WHERE A.id=".$id." ORDER BY C.Fecha Desc LIMIT 5";
-                
-            }else{
+                                    WHERE A.id=".$id." AND B.semestre = ".$semestre." AND B.anio = ".$year.
+                                    " ORDER BY C.Fecha Desc LIMIT 5";
 
-            $consultaClases = "SELECT A.id_clase AS IdClase, C.Nombre AS NombreClase, A.seccion AS Seccion, COUNT(E.id_clase) AS CantAlumnos, A.Edificio AS Edificio, A.salon AS Salon, A.horario AS horario, D.Nombre as Catedratico 
+                $consActividad = "SELECT *, CASE
+                                            WHEN Mes = 1 THEN \"Ene\"
+                                            WHEN Mes = 2 THEN \"Feb\"
+                                            WHEN Mes = 3 THEN \"Mar\"
+                                            WHEN Mes = 4 THEN \"Abr\"
+                                            WHEN Mes = 5 THEN \"May\"
+                                            WHEN Mes = 6 THEN \"Jun\"
+                                            WHEN Mes = 7 THEN \"Jul\"
+                                            WHEN Mes = 8 THEN \"Ago\"
+                                            WHEN Mes = 9 THEN \"Sep\"
+                                            WHEN Mes = 10 THEN \"Oct\"
+                                            WHEN Mes = 11 THEN \"Nov\"
+                                            WHEN Mes = 12 THEN \"Dic\"
+                                        END as Mesfin
+                                        FROM(SELECT D.Nombre as Clase, B.seccion as Seccion, C.Nombre as Actividad, C.Fecha as Fecha, DAY(C.Fecha) as Dia, MONTH(C.Fecha) as Mes FROM Alumno_Clase A
+                                            INNER JOIN Clase B ON A.id_clase = B.id_clase
+                                            INNER JOIN Curso D ON D.id_curso = B.id_curso
+                                            INNER JOIN Actividad C ON B.id_clase = C.id_clase
+                                            WHERE Fecha >= DATE_ADD(NOW(), INTERVAL -1 DAY) AND A.id=".$id." ORDER BY C.Fecha Asc) q";
+
+            }else if($type==2){
+
+            $consultaClases = "SELECT 
+                                A.id_clase AS IdClase, 
+                                C.Nombre AS NombreClase, 
+                                A.seccion AS Seccion, 
+                                COUNT(E.id_clase) AS CantAlumnos, 
+                                A.Edificio AS Edificio, 
+                                A.salon AS Salon, 
+                                A.horario AS horario, 
+                                D.Nombre as Catedratico 
                                     FROM Clase A 
                                     INNER JOIN users B ON A.id = B.id 
                                     INNER JOIN Curso C ON C.id_curso = A.id_curso 
-                                    INNER JOIN Catedratico D ON D.id_catedratico = A.id_catedratico 
+                                    LEFT JOIN users D ON D.id = A.id_catedratico
                                     LEFT JOIN Alumno_Clase E ON E.id_clase = A.id_clase
-                                    WHERE A.id=".$id." GROUP BY A.id_clase, C.Nombre, A.seccion, A.Edificio, A.salon, A.horario, D.Nombre";
+                                    WHERE A.id=".$id." AND A.semestre = ".$semestre." AND A.anio = ".$year.
+                                    " GROUP BY A.id_clase, C.Nombre, A.seccion, A.Edificio, A.salon, A.horario, D.Nombre";
 
             $consNoticias = "SELECT C.id_noticia as IdNoticia, D.Nombre as Clase, B.seccion as Seccion, C.Titulo as Titulo, C.Fecha, A.Nombre as Nombre
                                     FROM users A
                                     INNER JOIN Clase B ON A.id = B.id
                                     INNER JOIN Noticia C ON C.id_clase = B.id_clase
                                     INNER JOIN Curso D ON D.id_curso = B.id_curso
-                                    WHERE A.id=".$id." ORDER BY C.Fecha Desc LIMIT 5";
-            }
-            
+                                    WHERE A.id=".$id." AND B.semestre = ".$semestre." AND B.anio = ".$year.
+                                    " ORDER BY C.Fecha Desc LIMIT 5";
 
             $consActividad = "SELECT *, CASE
                                             WHEN Mes = 1 THEN \"Ene\"
@@ -133,6 +172,64 @@ class LoginController extends Controller
                                                                             INNER JOIN Curso D ON D.id_curso = B.id_curso
                                                                             INNER JOIN Actividad C ON B.id_clase = C.id_clase
                                                                             WHERE Fecha >= DATE_ADD(NOW(), INTERVAL -1 DAY) AND A.id=".$id." ORDER BY C.Fecha Asc) q";
+            }else{
+
+            $consultaClases = "SELECT 
+                                A.id_clase AS IdClase, 
+                                C.Nombre AS NombreClase, 
+                                A.seccion AS Seccion, 
+                                COUNT(E.id_clase) AS CantAlumnos, 
+                                A.Edificio AS Edificio, 
+                                A.salon AS Salon, 
+                                A.horario AS horario, 
+                                D.Nombre as Catedratico 
+                                    FROM Clase A 
+                                    INNER JOIN users B ON A.id_catedratico = B.id 
+                                    INNER JOIN Curso C ON C.id_curso = A.id_curso 
+                                    LEFT JOIN users D ON D.id = A.id_catedratico
+                                    LEFT JOIN Alumno_Clase E ON E.id_clase = A.id_clase
+                                    WHERE A.id_catedratico=".$id." AND A.semestre = ".$semestre." AND A.anio = ".$year.
+                                    " GROUP BY A.id_clase, C.Nombre, A.seccion, A.Edificio, A.salon, A.horario, D.Nombre";
+
+            $consNoticias = "SELECT C.id_noticia as IdNoticia, D.Nombre as Clase, B.seccion as Seccion, C.Titulo as Titulo, C.Fecha, A.Nombre as Nombre
+                                    FROM users A
+                                    INNER JOIN Clase B ON A.id = B.id_catedratico
+                                    INNER JOIN Noticia C ON C.id_clase = B.id_clase
+                                    INNER JOIN Curso D ON D.id_curso = B.id_curso
+                                    WHERE A.id=".$id." AND B.semestre = ".$semestre." AND B.anio = ".$year.
+                                    " ORDER BY C.Fecha Desc LIMIT 5";
+
+            $consActividad = "SELECT *, CASE
+                                            WHEN Mes = 1 THEN \"Ene\"
+                                            WHEN Mes = 2 THEN \"Feb\"
+                                            WHEN Mes = 3 THEN \"Mar\"
+                                            WHEN Mes = 4 THEN \"Abr\"
+                                            WHEN Mes = 5 THEN \"May\"
+                                            WHEN Mes = 6 THEN \"Jun\"
+                                            WHEN Mes = 7 THEN \"Jul\"
+                                            WHEN Mes = 8 THEN \"Ago\"
+                                            WHEN Mes = 9 THEN \"Sep\"
+                                            WHEN Mes = 10 THEN \"Oct\"
+                                            WHEN Mes = 11 THEN \"Nov\"
+                                            WHEN Mes = 12 THEN \"Dic\"
+                                            END as Mesfin
+                                            FROM(
+                                                SELECT 
+                                                    D.Nombre as Clase, 
+                                                    B.seccion as Seccion, 
+                                                    C.Nombre as Actividad, 
+                                                    C.Fecha as Fecha, 
+                                                    DAY(C.Fecha) as Dia, 
+                                                    MONTH(C.Fecha) as Mes 
+                                                        FROM users A
+                                                        INNER JOIN Clase B ON A.id = B.id_catedratico
+                                                        INNER JOIN Curso D ON D.id_curso = B.id_curso
+                                                        INNER JOIN Actividad C ON B.id_clase = C.id_clase
+                                                        WHERE Fecha >= DATE_ADD(NOW(), INTERVAL -1 DAY) 
+                                                        AND A.id=".$id.
+                                                        " ORDER BY C.Fecha Asc) q";
+            }
+            
 
             $index = 0;
             $dia = date("d"); 
@@ -246,14 +343,12 @@ class LoginController extends Controller
 
             $news = DB::SELECT($consNoticias);
             $clases = DB::SELECT($consultaClases);
-
-            //return json_encode($clases);
               
             $request->session()->put('clases', $clases);
             $request->session()->put('news', $news);
             $request->session()->put('activis', $activis);
             $request->session()->put('activis2',$activis2);
-            return view('inicio',compact('clases','type','news','activis')); 
+            return view('inicio');
         }
         else
         {

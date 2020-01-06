@@ -28,7 +28,7 @@
                                 <div class="form-group row">
                                     <label for="fname" class="col-sm-3 text-right control-label col-form-label">Nombre </label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" readonly="true" name="name" id="name" value="<?php echo Session::get('username');?>">
+                                        <input type="text" class="form-control"  name="name" id="name" value="<?php echo Session::get('username');?>" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -46,41 +46,35 @@
                                 <div class="form-group row">
                                     <label for="email1" class="col-sm-3 text-right control-label col-form-label">Correo</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="email2" name="email2" readonly="true" value="<?php echo $correo;?>">
+                                        <input type="text" class="form-control" id="email2" name="email2" value="<?php echo $correo;?>" required/>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Contraseña Actual</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" id="password" name="password" readonly="true" placeholder="Ingrese su contraseña actual">
+                                        <input type="password" class="form-control" id="password" name="password"  placeholder="Ingrese su contraseña actual" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Contraseña Nueva</label>
                                     <div class="col-sm-9">
-                                        <input type="password" class="form-control" id="password2" name="password2" readonly="true" placeholder="Ingrese una nueva contraseña">
+                                        <input type="password" class="form-control" id="password2" name="password2"  placeholder="Ingrese una nueva contraseña">
                                     </div>
                                 </div>
                                 <input type="text" hidden="true" class="form-control" readonly="true" name="email" id="email" value="<?php echo Session::get('email');?>">
                             </div>
                             {{ csrf_field() }}
-                        </form>
-                        <div class="border-top">
-                            <div class="row">
-                                 <div class="col-3"></div>
-                                <div class="col-2">
-                                    <div class="card-body">
-                                        <button type="button" class="btn btn-primary" onclick="enviar()">Guardar</button>
+                            <div class="row border-top border-secondary">
+                                <div class="col-4"></div>
+                                <div class="col-3">
+                                    <div class="form-group">                                    
+                                            <div class="p-t-20">                                        
+                                                <button class="btn  btn-primary btn-block text-white" type="submit">Guardar</button>
+                                            </div>                                    
                                     </div>
-                                    
-                                </div>
-                                <div class="col-2">
-                                    <div class="card-body">
-                                        <button type="button" class="btn btn-success" onclick="editable()">Editar</button>
-                                    </div>                                    
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>                
@@ -105,22 +99,6 @@
     <script src="/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="/dist/js/pages/chart/chart-page-init.js"></script>
     <script src="/assets/libs/toastr/build/toastr.min.js"></script>
-    <script>        
-        function editable()
-        {
-            document.getElementById('name').readOnly=false;
-            document.getElementById('cui').readOnly=false;
-            document.getElementById('email2').readOnly=false;
-            document.getElementById('password').readOnly=false;
-            document.getElementById('password2').readOnly=false;
-        }
-    </script>
-    <script>
-        function enviar()
-        {
-            document.infop.submit();
-        }
-    </script>
     @if(isset ($mensaje))
         <script type="text/javascript">
         $(document).ready(function() {                

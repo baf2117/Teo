@@ -1,40 +1,4 @@
-@extends('templates.main')
-@section('news')
-<ul class="list-style-none">
-    <li>
-        <div class="">
-            <a href="javascript:void(0)" class="link border-top">
-                <div class="d-flex no-block align-items-center p-10">
-                    <span class="btn btn-danger btn-circle"><i class="ti-calendar"></i></span>
-                    <div class="m-l-10">
-                        <h5 class="m-b-0">Recoger Tarea1</h5> 
-                        <span class="mail-desc">Hoy</span> 
-                    </div>
-                </div>
-            </a>
-            <a href="javascript:void(0)" class="link border-top">
-                <div class="d-flex no-block align-items-center p-10">
-                    <span class="btn btn-warning btn-circle"><i class="ti-calendar"></i></span>
-                    <div class="m-l-10">
-                        <h5 class="m-b-0">Parcial 1</h5> 
-                        <span class="mail-desc">En 3 días</span> 
-                    </div>
-                </div>
-            </a>
-            <!-- Message -->
-            <a href="javascript:void(0)" class="link border-top">
-                <div class="d-flex no-block align-items-center p-10">
-                    <span class="btn btn-primary btn-circle"><i class="ti-calendar"></i></span>
-                    <div class="m-l-10">
-                        <h5 class="m-b-0">Recoger Tarea2</h5> 
-                        <span class="mail-desc">Próxima Semana</span> 
-                    </div>
-                </div>
-            </a>
-        </div>
-    </li>
-</ul>
-@endsection
+@extends('templates.main3')
 @section('content')
     <div>
          <div class="page-breadcrumb">

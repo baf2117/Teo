@@ -27,7 +27,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <?php
                                 $cont = 0;
-                                foreach ($clases as $key => $item) {
+                                foreach (Session::get('clases') as $key => $item) {
                                 ?>     
                                 <li class="nav-item"> <a class="<?php if ($cont==0) {echo("nav-link active"); $cont++;} else { echo("nav-link"); } ?>" data-toggle="tab" href="#<?php echo "$item->IdClase";?>" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down"><?php 
                                     $nombrecurso = $item->NombreClase." ".$item->Seccion;
@@ -43,7 +43,7 @@
                             <div class="tab-content tabcontent-border">
                                 <?php
                                 $cont = 0;
-                                foreach ($clases as $key => $item) {
+                                foreach (Session::get('clases') as $key => $item) {
                                 ?>
                                 <div class="<?php if ($cont==0) {echo("tab-pane active"); $cont++;} else { echo("tab-pane"); } ?>" id="<?php echo "$item->IdClase";?>" role="tabpanel">
                                     <div class="p-20">                           
@@ -51,12 +51,12 @@
                                             <div class="col-lg-12"> 
                                                  <div class="row">                                       
                                                     <div class="col-md-6 col-lg-2 col-xlg-3">
-                                                        <a href="/curso">
+                                                        <a>
                                                             <div class="card card-hover">
-                                                                <div class="box bg-cyan text-center" href="/curso">
+                                                                <div class="box bg-cyan text-center">
                                                                     <h1 class="font-light text-white"><i class="fas fa-users"></i></h1>
                                                                     <?php
-                                                                    if ($type==3) {?>
+                                                                    if (Session::get('tipo')==3) {?>
                                                                         <h6 class="text-white">Auxiliar<br/><?php echo "$item->auxiliar";?></h6>
                                                                     <?php
                                                                     }else{
@@ -136,7 +136,7 @@
                             </div>
                             <div class="comment-widgets scrollable">
                                 <?php
-                                foreach ($news as $key => $item2) {
+                                foreach (Session::get('news') as $key => $item2) {
                                 ?>
                                 <div class="d-flex flex-row comment-row">
                                     <div class="p-2"><img src="../../assets/images/users/1.jpg" alt="user" width="50" class="rounded-circle"></div>
@@ -144,9 +144,7 @@
                                         <h6 class="font-medium"><?php echo "$item2->Nombre"; echo " - "; echo "$item2->Clase"; echo "\""; echo "$item2->Seccion"; echo"\"";?></h6>
                                         <span class="m-b-15 d-block"><?php echo "$item2->Titulo";?></span>
                                         <div class="comment-footer">
-                                            <span class="text-muted float-right"><?php echo "$item2->Fecha";?></span> 
-                                            <button type="button" class="btn btn-cyan btn-sm">Editar</button>
-                                            <button type="button" class="btn btn-danger btn-sm">Eliminar</button>
+                                            <span class="text-muted float-right"><?php echo "$item2->Fecha";?></span>
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +164,7 @@
                             </div>
                             <ul class="list-style-none">
                                 <?php
-                                foreach ($activis as $key => $item) {
+                                foreach (Session::get('activis') as $key => $item) {
                                 ?>
                                 <li class="d-flex no-block card-body">
                                     <i class="mdi mdi-bell-ring w-30px m-t-5"></i>
@@ -191,7 +189,9 @@
         </div>        
   @endsection
   @section('script')
-    <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/dist/js/jquery.ui.touch-punch-improved.js"></script>
+    <script src="/dist/js/jquery-ui.min.js"></script>
     <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
@@ -199,15 +199,23 @@
     <script src="/dist/js/waves.js"></script>
     <script src="/dist/js/sidebarmenu.js"></script>
     <script src="/dist/js/custom.min.js"></script>
-    <script src="/assets/libs/flot/excanvas.js"></script>
-    <script src="/assets/libs/flot/jquery.flot.js"></script>
-    <script src="/assets/libs/flot/jquery.flot.pie.js"></script>
-    <script src="/assets/libs/flot/jquery.flot.time.js"></script>
-    <script src="/assets/libs/flot/jquery.flot.stack.js"></script>
-    <script src="/assets/libs/flot/jquery.flot.crosshair.js"></script>
-    <script src="/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-    <script src="/dist/js/pages/chart/chart-page-init.js"></script>
-    <script src="/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/libs/moment/min/moment.min.js"></script>
+    <script src="/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="/dist/js/pages/calendar/cal-init.js"></script>
+    <script src="/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
+    <script src="/dist/js/pages/mask/mask.init.js"></script>
+    <script src="/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="/assets/libs/jquery-asColor/dist/jquery-asColor.min.js"></script>
+    <script src="/assets/libs/jquery-asGradient/dist/jquery-asGradient.js"></script>
+    <script src="/assets/libs/jquery-asColorPicker/dist/jquery-asColorPicker.min.js"></script>
+    <script src="/assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
+    <script src="/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="/assets/libs/quill/dist/quill.min.js"></script>
+    <script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
+    <script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+    <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="/assets/libs/toastr/build/toastr.min.js"></script>
     @if(isset ($msg))      
           <script type="text/javascript">      

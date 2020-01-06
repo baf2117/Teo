@@ -27,6 +27,12 @@ class AuxMiddleware
             case '2':
                 return $next($request);
                 break;
+            case '4':
+                return $next($request);
+                break;
+            case '5':
+                return $next($request);
+                break;
             
             default:
                 return redirect("/");

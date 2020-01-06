@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Http\Controllers\AdminController;
 use Session;
 use DB;
+
 class CalendarController extends Controller
 {
     /**
@@ -26,18 +27,26 @@ class CalendarController extends Controller
     {
     	$id =Session::get('id2');
 
-    	$busqueda1 = "SELECT a.id_clase,a.id_curso, b.Nombre, a.seccion FROM Clase a, Curso b WHERE a.id =".$id." AND b.id_curso = a.id_curso;";
+        $mes = date("m"); 
+        $semestre = AdminController::semestre($mes);
+        $year = date("Y");
+
+    	$busqueda1 = "SELECT a.id_clase,a.id_curso, b.Nombre, a.seccion FROM Clase a, Curso b WHERE a.id =".$id." AND b.id_curso = a.id_curso AND a.semestre = ".$semestre." AND a.anio = ".$year.";";
     	$cursos = DB::SELECT($busqueda1);
 
     	if(!count($cursos)>0)
     	{
-    		return view('Auxiliar.calendar');
+            $actividades = [];
+            $clases =Session::get('clases');
+            $cursos = [];
+            $type =Session::get('tipo');    
+    		return view('Auxiliar.calendar',compact('actividades','clases','cursos','type'));
     	}
     	$i =0;
     	$actividades;
      	foreach ( $cursos as $valor)
     	{
-    		$busqueda2 ="SELECT a.Nombre, a.Fecha, a.id_actividad, b.seccion, c.Nombre as curso from Actividad a, Clase b, Curso c WHERE a.id_clase = ".$valor->id_clase." AND a.id_clase = b.id_clase AND b.id_curso = c.id_curso;";
+    		$busqueda2 ="SELECT a.Nombre, a.Fecha, a.id_actividad, b.seccion, c.Nombre as curso from Actividad a, Clase b, Curso c WHERE a.id_clase = ".$valor->id_clase." AND a.id_clase = b.id_clase AND b.id_curso = c.id_curso AND b.semestre = ".$semestre." AND b.anio = ".$year.";";
     		if($i==0)
     		{
     			$actividades = DB::SELECT($busqueda2);
@@ -93,7 +102,14 @@ class CalendarController extends Controller
     {
     	$id = $request->actividad;
 
+        $sentencia = "DELETE FROM Alumno_Actividad WHERE  id_actividad = ".$id.";";
+
+        DB::delete($sentencia);
+        DB::commit();
+
     	$sentencia = "DELETE FROM Actividad WHERE id_actividad = ".$id.";";
+
+
     	DB::delete($sentencia);
     	DB::commit();
     	return redirect()->back();

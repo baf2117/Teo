@@ -1,7 +1,8 @@
- @extends('templates.main')
+@extends('templates.main')
 
     @section('head')
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
+
     <link rel="stylesheet" type="text/css" href="/assets/extra-libs/multicheck/multicheck.css">
     <link href="/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="/dist/css/style.min.css" rel="stylesheet">
@@ -54,7 +55,13 @@
 </div>
         
 </div>
-
+<div style="display: none">
+    <form id="notasend" name="notasend" method="POST" action="{{ route('alumno.descargar') }}">
+        <input type="text" name="idcurso" id="idcurso">
+        <input type="text" name="idrecurso" id="idrecurso">
+        {{ csrf_field() }}
+    </form>
+</div>
 
 @endsection
 
@@ -86,8 +93,7 @@
 <script src="/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
 <script src="/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
 <script src="/assets/extra-libs/DataTables/datatables.min.js"></script>
-<script src="/assets/extra-libs/DataTables/dataTables.scroller.min.js"></script>
-
+<script src="/assets/libs/toastr/build/toastr.min.js"></script>
 
 <script>
     
@@ -114,9 +120,17 @@
     <?php
     for ($i = 0; $i <count($recursos); $i++) 
     {
+        if($recursos[$i]->Tipo==0){
         //echo "[ \"Hola\", \"Hola\", \"Hola\" ], ";
-        echo "[ \"".$recursos[$i]->Nombre."\", \"".$recursos[$i]->Descripcion."\", \"<button onclick=\\\"postear('".$idcurso."','".$recursos[$i]->NombreArchivo."')\\\" data-toggle=\\\"modal\\\" class=\\\"btn btn-success btn-block waves-effect waves-light\\\"><i class=\\\"mdi mdi-download\\\"></i> Descargar</button>\"";
-        echo "],";
+            echo "[ \"".$recursos[$i]->Nombre."\", \"".$recursos[$i]->Descripcion."\", \"<button onclick=\\\"postear('".$idcurso."','".$recursos[$i]->NombreArchivo."')\\\" data-toggle=\\\"modal\\\" class=\\\"btn btn-success btn-block waves-effect waves-light\\\"><i class=\\\"mdi mdi-download\\\"></i> Descargar</button>\"";
+            echo "],";
+        }else{
+            $variable2 = str_replace("https://youtu.be/","https://www.youtube.com/embed/",$recursos[$i]->NombreArchivo);
+            $variable = str_replace("watch?v=","embed/",$variable2);
+
+            echo "[ \"".$recursos[$i]->Nombre."\", \"".$recursos[$i]->Descripcion."\", \"<iframe width=\\\"400\\\" height=\\\"275\\\" src=\\\"" . $variable . "\\\" frameborder=\\\"0\\\" allow=\\\"accelerometer; encrypted-media; gyroscope; picture-in-picture\\\" allowfullscreen></iframe>\"";
+            echo "],";
+        }
     }
     ?>
     ];
@@ -129,17 +143,13 @@
             scroller: true,
             columns: [
             { title: "Nombre Recurso" },
-            { title: "Descripcion" },
+            { title: "Descripción" },
             { title: "Descarga" }
             ]
         } );
         var myTable = $('#recursos').DataTable();
 
         myTable.fixedHeader.enable();
-
-        $('#recursos').on( 'click', 'tbody td', function () {
-            myTable.cell( this ).edit( 'bubble' );
-        } );
 
         $('#register').submit(function(){
             var varidcurso = $('#idcurso').val();

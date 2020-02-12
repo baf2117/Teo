@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-require '/var/www/html/Despligue/Teo/vendor/autoload.php';
+require '/home/usuario/Teo/vendor/autoload.php';
 
 use Illuminate\Http\Request;
 use Session;

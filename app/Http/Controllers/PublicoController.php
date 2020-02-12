@@ -37,7 +37,7 @@ class PublicoController extends Controller
     }
 
     public function descargar(Request $request)
-    {;
+    {
 
         $idrecurso = $request->idrecurso;
         $storage_path = storage_path();
@@ -49,7 +49,7 @@ class PublicoController extends Controller
         header ("Content-Length: ".filesize($url)); 
         readfile($url); 
 
-       /* $sentencia = "SELECT 
+        $sentencia = "SELECT 
         a.Nombre,
         a.Descripcion,
         a.NombreArchivo,
@@ -71,6 +71,6 @@ class PublicoController extends Controller
         WHERE a.publico = 1;";
 
         $recursos = DB::select($sentencia);
-        return view('Publico.recursos',compact('recursos'));*/
+        return view('Publico.recursos',compact('recursos'));
     }
 }

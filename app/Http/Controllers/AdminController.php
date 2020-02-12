@@ -36,10 +36,10 @@ class AdminController extends Controller
         if($mes==6) 
         {
             $semestre=2;
-        }else if($mes<12)
+        }else if($mes<12 && $mes > 6)
         {
             $semestre= 3;
-        }else
+        }else if($mes==12)
         {
             $semestre = 4;
         }
@@ -154,7 +154,7 @@ class AdminController extends Controller
         $busqueda1 = "SELECT id_curso as id, Nombre FROM Curso;";
         $cursos2 = DB::SELECT($busqueda1);
 
-        $busqueda1 = "SELECT id_catedratico as id, Nombre FROM Catedratico;";
+        $busqueda1 = "SELECT id, Nombre FROM users WHERE tipo > 3;";
         $cat = DB::SELECT($busqueda1);
 
         if(Session::has('msg'))
@@ -189,7 +189,7 @@ class AdminController extends Controller
         $busqueda1 = "SELECT id_curso as id, Nombre FROM Curso;";
         $cursos2 = DB::SELECT($busqueda1);
 
-        $busqueda1 = "SELECT id_catedratico as id, Nombre FROM Catedratico;";
+        $busqueda1 = "SELECT id, Nombre FROM users WHERE tipo > 3;";
         $cat = DB::SELECT($busqueda1);
 
         if(Session::has('msg'))
@@ -388,9 +388,9 @@ class AdminController extends Controller
     public function editcurso(Request $request)
     {
         $id_clase=$request->clase;
-        $busqueda1 = "SELECT a.id_clase as id, a.semestre, a.anio, a.seccion, a.Edificio, a.salon, a.horario, b.Nombre as Catedratico,b.id_catedratico,c.Nombre as auxiliar, d.Nombre as curso, d.id_curso  
+        $busqueda1 = "SELECT a.id_clase as id, a.semestre, a.anio, a.seccion, a.Edificio, a.salon, a.horario, b.Nombre as Catedratico,b.id as id_catedratico,c.Nombre as auxiliar, d.Nombre as curso, d.id_curso  
             FROM Clase a
-            LEFT JOIN Catedratico b ON a.id_catedratico = b.id_catedratico
+            LEFT JOIN users b ON a.id_catedratico = b.id
             LEFT JOIN users c ON c.id = a.id
             INNER JOIN Curso d ON d.id_curso = a.id_curso 
             WHERE a.id_clase = ".$id_clase."
@@ -425,8 +425,8 @@ class AdminController extends Controller
         $news =Session::get('news');
 
         $busqueda1 = "SELECT a.id, a.seccion, a.Edificio, a.salon, a.horario, b.Nombre AS Catedratico,c.Nombre AS auxiliar, d.Nombre AS curso, d.id_curso  
-                        FROM Clase a, Catedratico b, users c , Curso d 
-                        WHERE a.id_catedratico = b.id_catedratico AND c.id = a.id AND d.id_curso = a.id_curso  
+                        FROM Clase a, users b, users c , Curso d 
+                        WHERE a.id_catedratico = b.id AND c.id = a.id AND d.id_curso = a.id_curso  
                         ORDER BY c.Nombre,d.id_curso ASC";
 
         $cursos = DB::SELECT($busqueda1);

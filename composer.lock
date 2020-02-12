@@ -2930,16 +2930,16 @@
         },
         {
             "name": "szymach/c-pchart",
-            "version": "v3.0.7",
+            "version": "v3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szymach/c-pchart.git",
-                "reference": "cff756ac9cb87671b4833c5935c1c7bd12947db0"
+                "reference": "9cbaa966ec536621ba50346f04ebc37ad962f4a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szymach/c-pchart/zipball/cff756ac9cb87671b4833c5935c1c7bd12947db0",
-                "reference": "cff756ac9cb87671b4833c5935c1c7bd12947db0",
+                "url": "https://api.github.com/repos/szymach/c-pchart/zipball/9cbaa966ec536621ba50346f04ebc37ad962f4a5",
+                "reference": "9cbaa966ec536621ba50346f04ebc37ad962f4a5",
                 "shasum": ""
             },
             "require": {
@@ -2949,9 +2949,9 @@
             "require-dev": {
                 "codeception/codeception": "^2.4",
                 "phpunit/phpunit": "^4.8|^7.1",
-                "squizlabs/php_codesniffer": "^2.8|^3.3"
+                "squizlabs/php_codesniffer": "^3.4"
             },
-            "type": "project",
+            "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "3.0.x-dev",
@@ -2991,7 +2991,7 @@
                 "pchart",
                 "statistics"
             ],
-            "time": "2018-11-22T11:28:00+00:00"
+            "time": "2019-07-26T22:38:20+00:00"
         },
         {
             "name": "tightenco/ziggy",

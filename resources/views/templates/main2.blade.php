@@ -41,9 +41,6 @@
                                 </a>
                                 <div class="dropdown-menu bg-dark text-light border border-dark" aria-labelledby="nosotrosMenu">
                                     <a class="dropdown-item bg-dark text-light" href="/horarios">Clases</a>
-                                    <a class="dropdown-item bg-dark text-light" href="#">Examen Final</a>
-                                    <a class="dropdown-item bg-dark text-light" href="#">Primera Retrasada</a>
-                                    <a class="dropdown-item bg-dark text-light" href="#">Segunda Retrasada</a>
                                 </div>
                             </div>
                         </li>

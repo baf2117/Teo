@@ -28,7 +28,7 @@ class HorariosController extends Controller
                         LEFT JOIN users b ON b.id = a.id_catedratico
                         LEFT JOIN users c ON a.id = c.id
                         INNER JOIN Curso d ON d.id_curso = a.id_curso
-                        WHERE a.semestre =".$semestre." AND a.anio = ".$year." order by d.id_curso,a.seccion ASC";
+                        WHERE a.semestre =".$semestre." AND a.anio = ".$year." AND a.salon > 0  order by d.id_curso,a.seccion ASC";
                         
     	$cursos = DB::SELECT($busqueda1);
     	return view('Curso.horarios',compact('cursos'));

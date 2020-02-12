@@ -28,7 +28,7 @@ class Horarios2Controller extends Controller
         $semestre = AdminController::semestre($mes);
         $year = date("Y");
 
-        $busqueda1 = "SELECT a.seccion, a.Edificio, a.salon, a.horario, b.Nombre as Catedratico,c.Nombre as auxiliar, d.Nombre as curso, d.id_curso  FROM Clase a, Catedratico b, users c , Curso d where a.id_catedratico = b.id_catedratico and c.id = a.id AND d.id_curso = a.id_curso AND a.semestre =".$semestre." AND a.anio = ".$year." order by d.id_curso, a.seccion ASC";
+        $busqueda1 = "SELECT a.seccion, a.Edificio, a.salon, a.horario, b.Nombre as Catedratico,c.Nombre as auxiliar, d.Nombre as curso, d.id_curso  FROM Clase a, Catedratico b, users c , Curso d where a.id_catedratico = b.id_catedratico and c.id = a.id AND d.id_curso = a.id_curso AND a.semestre =".$semestre." AND a.anio = ".$year." AND a.salon > 0 order by d.id_curso, a.seccion ASC";
     	$cursos = DB::SELECT($busqueda1);
         return view('Curso.horarios_',compact('id2','clases','type','news','cursos'));
     }

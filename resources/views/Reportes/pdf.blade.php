@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+F<!DOCTYPE html>
     <html dir="ltr" lang="es">
 
     <head>
@@ -146,7 +146,7 @@ if($temita == 1){
   </td>
 
   <td>
-  	<img src="/var/www/html/Despligue/Teo/public/ejemplito.png" />
+  	<img src="/home/usuario/Teo/public/ejemplito.png" />
   </td>	
   </tr>
   </tbody>

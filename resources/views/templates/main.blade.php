@@ -145,8 +145,8 @@
                                 <div class="dropdown-menu bg-dark text-light border border-dark" aria-labelledby="adminMenu">
                                     <a class="dropdown-item bg-dark text-light" href="/admin/aux">Clases</a>
                                     <a class="dropdown-item bg-dark text-light" href="/admin/aux2">Auxiliares</a>
-                                    <a class="dropdown-item bg-dark text-light" href="/admin/user">Catedráticos</a>
-                                    <a class="dropdown-item bg-dark text-light" href="/admin/cat">Estudiantes</a>
+                                    <a class="dropdown-item bg-dark text-light" href="/admin/cat">Catedráticos</a>
+                                    <a class="dropdown-item bg-dark text-light" href="/admin/user">Estudiantes</a>
                                     <a class="dropdown-item bg-dark text-light" href="/admin/recursos">Recursos</a>
                                     <a class="dropdown-item bg-dark text-light dropdown-toggle" role="button" href="#" id="examenesMenu" aria-expanded="false" aria-haspopup="true" data-toggle="dropdown"  title="Examenes">
                                     Horarios
